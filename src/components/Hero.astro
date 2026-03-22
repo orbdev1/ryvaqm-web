@@ -1,1 +1,111 @@
-<h1 class="bg-red-100">Hero</h1>
+<header
+  id="main-header"
+  class="fixed top-0 left-0 w-full z-50 transition-all duration-300"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+
+      <!-- Logo -->
+      <a href="/" class="text-white font-black text-2xl tracking-widest uppercase">
+        RYV<span class="text-yellow-400">AQM</span>
+      </a>
+
+      <!-- Nav desktop -->
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#flota" class="nav-link">Flota</a>
+        <a href="#nosotros" class="nav-link">Nosotros</a>
+        
+          href="/contacto"
+          class="bg-yellow-400 text-black font-bold px-5 py-2 rounded-sm hover:bg-yellow-300 transition-colors"
+        >
+          Contacto
+        </a>
+      </nav>
+
+      <!-- Burger (mobile) -->
+      <button
+        id="burger"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+        class="md:hidden flex flex-col gap-[6px] p-2 cursor-pointer"
+      >
+        <span id="b1" class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+        <span id="b2" class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+        <span id="b3" class="block w-6 h-[2px] bg-white transition-all duration-300"></span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- Nav mobile -->
+  <nav
+    id="mobile-nav"
+    class="md:hidden hidden flex-col px-6 pb-6 pt-2 gap-4 bg-zinc-950/95 backdrop-blur-md"
+  >
+    <a href="#servicios" class="mobile-link">Servicios</a>
+    <a href="#flota" class="mobile-link">Flota</a>
+    <a href="#nosotros" class="mobile-link">Nosotros</a>
+    
+      href="/contacto"
+      class="bg-yellow-400 text-black font-bold px-5 py-3 text-center rounded-sm hover:bg-yellow-300 transition-colors"
+    >
+      Contacto
+    </a>
+  </nav>
+</header>
+
+<style>
+  @reference "tailwindcss";
+  .nav-link {
+    @apply text-white/80 hover:text-yellow-400 font-medium transition-colors text-sm uppercase tracking-wider;
+  }
+
+  .mobile-link {
+    @apply text-white/80 hover:text-yellow-400 font-medium transition-colors text-lg border-b border-white/10 pb-3;
+  }
+
+  #main-header.scrolled {
+    @apply bg-zinc-950/90 backdrop-blur-md shadow-lg shadow-black/20;
+  }
+</style>
+
+<script>
+  const header = document.getElementById('main-header')
+  const burger = document.getElementById('burger')
+  const mobileNav = document.getElementById('mobile-nav')
+  const b1 = document.getElementById('b1')
+  const b2 = document.getElementById('b2')
+  const b3 = document.getElementById('b3')
+
+  // Scroll → header sólido
+  window.addEventListener('scroll', () => {
+    header?.classList.toggle('scrolled', window.scrollY > 60)
+  })
+
+  // Burger toggle
+  burger?.addEventListener('click', () => {
+    const isOpen = mobileNav?.classList.toggle('hidden')
+    mobileNav?.classList.toggle('flex')
+    burger.setAttribute('aria-expanded', String(!isOpen))
+
+    // Animación burger → X
+    b1?.classList.toggle('translate-y-2')
+    b1?.classList.toggle('rotate-45')
+    b2?.classList.toggle('opacity-0')
+    b3?.classList.toggle('-translate-y-2')
+    b3?.classList.toggle('-rotate-45')
+  })
+
+  // Cerrar mobile nav al clickear un link
+  mobileNav?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.add('hidden')
+      mobileNav.classList.remove('flex')
+      burger?.setAttribute('aria-expanded', 'false')
+      b1?.classList.remove('translate-y-2', 'rotate-45')
+      b2?.classList.remove('opacity-0')
+      b3?.classList.remove('-translate-y-2', '-rotate-45')
+    })
+  })
+</script>
